@@ -20,6 +20,10 @@ public class EikoArray<E extends Comparable<? super E>> {
 		size = 0;
 	}
 	
+	public int size() {
+		return size;
+	}
+	
 	/**
 	 * Add a new element.
 	 * @param element is the element to add.

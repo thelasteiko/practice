@@ -18,6 +18,8 @@ public class EikoList<T extends Comparable<T>> {
 		size = 0;
 	}
 	
+	public int size() {return size;}
+	
 	public void add(T value) {
 		if (head == null) {
 			head = new Node(null, value, null);
@@ -38,6 +40,7 @@ public class EikoList<T extends Comparable<T>> {
 	public T removeFrom(int index) throws IndexOutOfBoundsException {
 		if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
 		Node temp = getNodeAt(index);
+		size--;
 		return remove(temp).value;
 	}
 	public T get(int index) throws IndexOutOfBoundsException {
