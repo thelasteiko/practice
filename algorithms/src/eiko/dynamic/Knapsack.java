@@ -9,14 +9,20 @@ import java.util.LinkedList;
 
 import eiko.drive.Util;
 
+/**
+ * My attempt to recreate the knapsack problem using 0-1, limited quantity and unlimited
+ * restrictions.
+ * @author Melinda Robertson
+ * @version 20160818
+ */
 public class Knapsack {
 	
-	private double limit;
+	private int limit;
 	private ArrayList<Item> source;
 	private ArrayList<Item> solution;
 	
 	public Knapsack () {
-		limit = 0.0;
+		limit = 0;
 		source = new ArrayList<Item>();
 		solution = new ArrayList<Item>();
 	}
@@ -26,10 +32,6 @@ public class Knapsack {
 	 */
 	public void zero_one() {
 		solution.clear();
-		//double[][] A = new double[source.size()][(int) limit];
-		//for(int i = 0; i < A.length; i++) A[i][0] = 0;
-		//if the limit is zero, cannot add any items.
-		//for(int i = 0; i < A[0].length; i++) A[0][i] = 0;
 		Matrix temp = new Matrix(source.size(), (int) limit+1);
 		for (int i = 0; i < source.size(); i++) {
 			Item current = source.get(i);
@@ -41,7 +43,6 @@ public class Knapsack {
 					//find the best between the previous optimal solution that accounts for the current weight
 					//and a new solution that adds this item's weight while reducing the current solution's value
 					// to add the current item's value
-					//A[i][j] = Util.max(A[i-1][j], A[i-1][j- (int) (current.weight+0.5)] + current.value);
 					int j2 = j-(int)(current.weight+0.5);
 					Set t2 = temp.get(i-1, j2);
 					Set u = new Set(i, j, (t2 == null ? 0 : t2.value) + current.value, current);
@@ -55,12 +56,52 @@ public class Knapsack {
 		solution = temp.getSolution(source.size()-1, (int) limit-1);
 	}
 	
+	public void zero_one2() {
+		solution.clear();
+		int[][] A = new int[source.size()+1][(int) limit+1];
+		//if the limit is zero, cannot add any items.
+		for(int i = 0; i < source.size()+1; i++) A[i][0] = 0;
+		for (int j = 0; j < limit+1; j++) A[0][j] = 0;
+		for (int i = 1; i < source.size()+1; i++) {
+			Item current = source.get(i-1);
+			for (int j = 1; j < limit+1; j++) {
+				int t = A[i-1][j];
+				//keep the previous solution since this item can't be added
+				if ((current.weight+0.5) > j) A[i][j] = t;
+				else {
+					//find the best between the previous optimal solution that accounts for the current weight
+					//and a new solution that adds this item's weight
+					int j2 = j-(int)(current.weight+0.5);
+					int t2 = A[i-1][j2] + current.value;
+					//A[i][j] = Util.max(A[i-1][j], t2);
+					if (t >= t2) A[i][j] = t;
+					//if the previous solution was chosen, do nothing
+					else A[i][j] = t2;
+				}
+			}
+		}
+		int j = limit;
+		//follow back through the matrix to find the items selected
+		for (int i = source.size(); i >= 1; i--) {
+			Item current = source.get(i - 1);
+			int j2 = j - (int) (current.weight); // location
+			if (j2 < 0)
+				break;
+			int val = A[i - 1][j2]; // value
+			if (A[i][j] == val + current.value) {
+				solution.add(current);
+				j = j2;
+			}
+		}
+		//System.out.println(Util.matrix_toString(A));
+	}
+	
 	public void reset() {
 		source.clear();
 		solution.clear();
-		limit = 0.0;
+		limit = 0;
 	}
-	public void manual_load(double limit, double[] weight, double[] value, int[] quantity) {
+	public void manual_load(int limit, int[] weight, int[] value, int[] quantity) {
 		reset();
 		this.limit = limit;
 		for (int i = 0; i < weight.length; i++) {
@@ -73,7 +114,7 @@ public class Knapsack {
 			String line = null;
 			while ((line = br.readLine()) != null) {
 				//TODO determine what format Imma use.
-				//first double should have limit of knapsack
+				//first int should have limit of knapsack
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -84,7 +125,7 @@ public class Knapsack {
 	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Knapsack: " + this.limit + "/n");
+		sb.append("Knapsack: " + this.limit + "\n");
 		sb.append("Source:\n");
 		sb.append(list_toString(source));
 		sb.append("Solution:\n");
@@ -106,10 +147,10 @@ public class Knapsack {
 	
 	private class Item {
 		String name;
-		double weight;
-		double value;
+		int weight;
+		int value;
 		int quantity;
-		public Item(String name, double weight, double value, int quantity) {
+		public Item(String name, int weight, int value, int quantity) {
 			super();
 			this.name = name;
 			this.weight = weight;
@@ -134,7 +175,7 @@ public class Knapsack {
 			this.i = 0;
 			this.j = 1;
 		}
-		public void set(int i, int j, double v, Item c) {
+		public void set(int i, int j, int v, Item c) {
 			m[i][j] = new Set(i, j, v, c);
 			this.i = i;
 			this.j = j;
@@ -189,11 +230,11 @@ public class Knapsack {
 		//concept is that the greater the limit, the more items can be stored
 		
 		int i, j;
-		double value;
+		int value;
 		Set prev; //this is setting up a linked list...which is fine
 		Item current;
 		//set all the things before sending to matrix
-		public Set(int i, int j, double value, Item current) {
+		public Set(int i, int j, int value, Item current) {
 			super();
 			this.i = i;
 			this.j = j;
