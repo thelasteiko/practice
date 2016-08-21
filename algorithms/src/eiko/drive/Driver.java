@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import eiko.dynamic.Knapsack;
 import eiko.error.TimerRunningException;
+import eiko.gui.MainFrame;
 
 /**
  * @author Melinda Robertson
@@ -20,7 +21,7 @@ public class Driver {
 	/**
 	 * @param args are args.
 	 */
-	public static void main(String[] args) {
+	public static void console(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
 		pr("Algorithm Testing Utility");

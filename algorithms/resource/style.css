@@ -1,0 +1,22 @@
+.pane {
+	-fx-padding: 20px;
+}
+
+.tab-label {
+    -fx-content-display: left;
+}
+.tab-pane {
+    -fx-tab-min-height: 64;
+    -fx-tab-max-height: 64;
+    -fx-tab-min-width: 64;
+    -fx-tab-max-width: 64;
+}
+
+.title1 {
+	-fx-font-size: 24px;
+}
+
+.grid {
+	-fx-hgap: 10px;
+	-fx-vgap: 10px;
+}
