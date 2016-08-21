@@ -23,14 +23,17 @@ public class HomeTab extends Tab {
 		gp.getStyleClass().add(Util.SC_GRID);
 		gp.getStyleClass().add(Util.SC_PANE);
 		Label welcome = new Label("Welcome to the Code Study Tool.");
-		welcome.getStyleClass().add(Util.SC_TITLE);
+		welcome.getStyleClass().add(Util.SC_TITLE1);
 		//add a key, some type of table with icon then label
 		ImageView img_slides = Util.buildImage(Util.FN_SLIDES);
 		Label lbl_slides = new Label("Lecture");
+		lbl_slides.getStyleClass().add(Util.SC_TITLE2);
 		ImageView img_algorithms = Util.buildImage(Util.FN_ALGORITHMS);
 		Label lbl_algorithms = new Label("Algorithm Analysis");
+		lbl_algorithms.getStyleClass().add(Util.SC_TITLE2);
 		ImageView img_collections = Util.buildImage(Util.FN_COLLECTIONS);
 		Label lbl_collections = new Label("Arrays, Lists, etc.");
+		lbl_collections.getStyleClass().add(Util.SC_TITLE2);
 		
 		//child, colindex, rowindex, colspan, rowspan
 		gp.add(welcome, 0, 0, 5, 1);

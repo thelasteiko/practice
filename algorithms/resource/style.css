@@ -16,6 +16,10 @@
 	-fx-font-size: 24px;
 }
 
+.title2 {
+	-fx-font-size: 18px;
+}
+
 .grid {
 	-fx-hgap: 10px;
 	-fx-vgap: 10px;

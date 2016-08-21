@@ -18,7 +18,8 @@ public class Util {
 	public static final String FN_HOME = "./resource/ufo.png";
 	public static final String FN_STYLE = "./resource/style.css";
 	
-	public static final String SC_TITLE = "title1";
+	public static final String SC_TITLE1 = "title1";
+	public static final String SC_TITLE2 = "title2";
 	public static final String SC_GRID = "grid";
 	public static final String SC_PANE = "pane";
 	
