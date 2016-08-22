@@ -11,11 +11,12 @@ import javafx.scene.image.ImageView;
  * @version 20160817
  */
 public class Util {
-	
+	//<div>Icons made by <a href="http://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 	public static final String FN_SLIDES = "./resource/browser.png";
 	public static final String FN_ALGORITHMS = "./resource/chalkboard.png";
 	public static final String FN_COLLECTIONS = "./resource/shopping-bag.png";
 	public static final String FN_HOME = "./resource/ufo.png";
+	public static final String FN_THREADS = "./resource/needle.png";
 	public static final String FN_STYLE = "./resource/style.css";
 	
 	public static final String SC_TITLE1 = "title1";
@@ -58,5 +59,9 @@ public class Util {
         imageView.setFitWidth(IMG_PXSIZE);
         imageView.setImage(i);
         return imageView;
+	}
+	
+	public static Image getImage(String filename) {
+		return new Image(new File(filename).toURI().toString());
 	}
 }

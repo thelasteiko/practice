@@ -1,0 +1,23 @@
+CREATE TABLE slide (
+	subject	TEXT	NOT NULL,
+	title	TEXT	NOT NULL,
+	num		INT		NOT NULL,
+	img_file	TEXT	NULL,
+	content		TEXT	NOT NULL
+);
+
+CREATE TABLE test_data (
+	type	TEXT	NOT NULL,
+	num		INT		NOT NULL,
+	data	TEXT	NOT NULL
+);
+
+CREATE TABLE telemetry (
+	type	TEXT	NOT NULL,
+	test_num	INT	NULL,
+	operation	TEXT	NULL,
+	start	TEXT	NOT NULL,
+	end		TEXT	NOT NULL,
+	duration	TEXT	NOT NULL,
+	errors		TEXT	NULL
+);

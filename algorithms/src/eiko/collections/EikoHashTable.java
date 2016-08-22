@@ -182,9 +182,9 @@ public class EikoHashTable<K extends Comparable<K>,V> {
 		public String toString() {
 			StringBuilder sb = new StringBuilder();
 			sb.append(":");
-			sb.append(key);
+			sb.append(key.toString());
 			sb.append("=");
-			sb.append(value);
+			sb.append(value.toString());
 			return sb.toString();
 		}
 	}

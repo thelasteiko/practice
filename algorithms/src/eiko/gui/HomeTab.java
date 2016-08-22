@@ -34,6 +34,8 @@ public class HomeTab extends Tab {
 		ImageView img_collections = Util.buildImage(Util.FN_COLLECTIONS);
 		Label lbl_collections = new Label("Arrays, Lists, etc.");
 		lbl_collections.getStyleClass().add(Util.SC_TITLE2);
+		ImageView img_threads = Util.buildImage(Util.FN_THREADS);
+		Label lbl_threads = new Label("Threads");
 		
 		//child, colindex, rowindex, colspan, rowspan
 		gp.add(welcome, 0, 0, 5, 1);
@@ -43,6 +45,8 @@ public class HomeTab extends Tab {
 		gp.add(lbl_algorithms, 2, 2,2,1);
 		gp.add(img_collections, 1, 3,1,1);
 		gp.add(lbl_collections, 2, 3,2,1);
+		gp.add(img_threads, 1, 4,1,1);
+		gp.add(lbl_threads, 2, 4,2,1);
 		
 		this.setContent(gp);
 	}
