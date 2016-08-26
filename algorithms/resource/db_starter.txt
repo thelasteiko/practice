@@ -5,13 +5,11 @@ CREATE TABLE slide (
 	img_file	TEXT	NULL,
 	content		TEXT	NOT NULL
 );
-
 CREATE TABLE test_data (
 	type	TEXT	NOT NULL,
 	num		INT		NOT NULL,
 	data	TEXT	NOT NULL
 );
-
 CREATE TABLE telemetry (
 	type	TEXT	NOT NULL,
 	test_num	INT	NULL,
@@ -21,3 +19,89 @@ CREATE TABLE telemetry (
 	duration	TEXT	NOT NULL,
 	errors		TEXT	NULL
 );
+INSERT INTO slide VALUES (
+	'Big O',
+	'Definition',
+	0,
+	'./resource/slide/bigo_0_Comparison_computational_complexity.png',
+	'A system used to determine how efficient, in run time and memory use, an algorithm is.'
+);
+INSERT INTO slide VALUES (
+	'Big O',
+	'General Notation',
+	1,
+	'./resource/slide/bigo_0_Comparison_computational_complexity.png',
+	'If our algorithm's runtime f(n) will always run <= g(n), we say f = O(g).\nIf our algorithm's f(n) runtime will always run >= g(n) , we say f = [Omega](g).\nIf our algorithm's f(n) runtime will always run = g(n) , we say f = [Theta](g).\nLittle 'o' and little [omega] is used for close or non-asymptotic.'
+);
+INSERT INTO slide VALUES (
+	'Big O',
+	'Fastest to Slowest',
+	2,
+	'./resource/slide/bigo_2_fasttoslow.png',
+	'Big O algorithms usually fall in one of these categories or can be placed within this spectrum.'
+);
+INSERT INTO slide VALUES (
+	'Big O: Properties',
+	'Theta is equal',
+	0,
+	NULL,
+	'For any two functions f(n) and g(n):\nf(n) is [Theta] of g(n) if and only if f(n) is O(g(n)) and f(n) is [Omega](g(n)).',
+);
+INSERT INTO slide VALUES (
+	'Big O: Properties',
+	'Transitivity',
+	1,
+	'./resource/slide/bigo_4_transitive.png',
+	'Basically, f is to h as f is to g if g is to h as f is to g. True story.'
+);
+INSERT INTO slide VALUES (
+	'Big O: Properties',
+	'Reflexivity, Symmetry, Transpose',
+	2,
+	'./resource/slide/bigo_5_reflexivity.png',
+	'These theorems are more or less common sense.\nSymmetry: if f = g then g = f.\nTranspose: if f is O(g) then g is [Omega]f and etc.'
+);
+INSERT INTO slide VALUES (
+	'Big O: Master Theorem',
+	'Introduction',
+	0,
+	NULL,
+	'Master's Theorem refers to a way of creating a closed form for recurrence relations. Recurrence relations are equations that mathematically describe the number of operations that occur in certain algorithms, most notably those involving sequences or arrays.'
+);
+INSERT INTO slide VALUES (
+	'Big O: Master Theorem',
+	'Introduction 2',
+	1,
+	NULL,
+	'A closed form of a recurrence relation can be found when a sequence can be defined in terms of an index instead of previous terms.'
+);
+INSERT INTO slide (subject) VALUES ('Sorting: QuickSort');
+INSERT INTO slide VALUES (
+	'Sorting: Partitions',
+	'Lomuto's',
+	0,
+	'./resource/slide/partition_0_lomuto.png',
+	'Lomuto's partition algorithm swaps items on each iteration.'
+);
+INSERT INTO slide VALUES (
+	'Sorting: Partitions',
+	'Hoare's,
+	1,
+	'./resource/slide/partition_1_hoare.png',
+	'Hoare's partition algorithm swaps items only when needed.'
+);
+INSERT INTO slide (subject) VALUES ('Sorting: MergeSort');
+INSERT INTO slide (subject) VALUES ('Hash Tables');
+INSERT INTO slide (subject) VALUES ('Trees: Traversal');
+INSERT INTO slide (subject) VALUES ('Trees: Manipulation');
+INSERT INTO slide (subject) VALUES ('Trees: Types');
+INSERT INTO slide (subject) VALUES ('Graphs: Representation');
+INSERT INTO slide (subject) VALUES ('Graphs: Traversal');
+INSERT INTO slide (subject) VALUES ('Algorithms: NP-Complete');
+INSERT INTO slide (subject) VALUES ('Threads: Semaphore');
+INSERT INTO slide (subject) VALUES ('Threads: Lock Avoidance');
+INSERT INTO slide (subject) VALUES ('Threads: Context Switching');
+INSERT INTO slide (subject) VALUES ('Threads: Scheduling');
+INSERT INTO slide (subject) VALUES ('Recursion: Inductive Proofs');
+INSERT INTO slide (subject) VALUES ('Discrete: Combinatorics');
+INSERT INTO slide (subject) VALUES ('Google Systems');

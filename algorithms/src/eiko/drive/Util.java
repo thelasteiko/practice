@@ -1,6 +1,7 @@
 package eiko.drive;
 
 import java.io.File;
+import java.util.Random;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -63,5 +64,38 @@ public class Util {
 	
 	public static Image getImage(String filename) {
 		return new Image(new File(filename).toURI().toString());
+	}
+	
+	public static Integer[] createSortTestList(int size, int min, int max) {
+		Integer[] data = new Integer[size];
+		Random r = new Random();
+		for(int i = 0; i < size; i++) {
+			data[i] = r.nextInt(max-min)+min;
+		}
+		return data;
+	}
+	public static void shuffle(Integer[] data) {
+		if (data == null) return;
+		Random r = new Random();
+		for (int i = 0; i < data.length; i++) {
+			int n = r.nextInt(data.length);
+			int m = r.nextInt(data.length);
+			swap(data, n, m);
+		}
+	}
+	
+	public static <T extends Comparable<? super T>> void swap(T[] data, int a, int b) {
+		T temp = data[a];
+		data[a] = data[b];
+		data[b] = temp;
+	}
+	
+	public static Integer[] parsecsv(String parsable) {
+		String[] parsed_data = parsable.split(",");
+		Integer[] data = new Integer[parsed_data.length];
+		for(int i = 0; i < data.length; i++) {
+			data[i] = Integer.parseInt(parsed_data[i]);
+		}
+		return data;
 	}
 }

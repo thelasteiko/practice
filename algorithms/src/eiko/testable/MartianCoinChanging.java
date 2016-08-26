@@ -1,4 +1,4 @@
-package eiko.dynamic;
+package eiko.testable;
 
 public class MartianCoinChanging {
 

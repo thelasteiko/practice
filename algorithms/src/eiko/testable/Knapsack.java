@@ -1,11 +1,10 @@
-package eiko.dynamic;
+package eiko.testable;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 import eiko.drive.Util;
 
@@ -15,7 +14,7 @@ import eiko.drive.Util;
  * @author Melinda Robertson
  * @version 20160818
  */
-public class Knapsack {
+public class Knapsack extends AbstractRunnableTest {
 	
 	private int limit;
 	private ArrayList<Item> source;
@@ -25,8 +24,43 @@ public class Knapsack {
 		limit = 0;
 		source = new ArrayList<Item>();
 		solution = new ArrayList<Item>();
+		timer = new Timer();
 	}
-	
+	@Override
+	public void run() {
+		if (source.isEmpty()) return;
+		zero_one2();
+		cb.test_end(source.size(), timer);
+	}
+
+	@Override
+	public void setData(String parsable) {
+		if (parsable == null) {
+			//int limit, int[] weight, int[] value, int[] quantity
+			manual_load(10, Util.createSortTestList(5, 1, 10), 
+					Util.createSortTestList(5, 2, 15), Util.createSortTestList(5, 1, 5));
+		} else {
+			//limit
+			int limit;
+			//weight
+			Integer[] weight, value, quantity;
+			//value
+			//quantity
+			int i = parsable.indexOf('\n'); //first line of text
+			if (i > 0)
+				limit = Integer.parseInt(parsable.substring(0, i)); //still first line of text
+			int i2 = parsable.indexOf('\n', i+1); //second line of text
+			if (i2 > 0)
+				weight = Util.parsecsv(parsable.substring(i+1, i2+1));
+			i = parsable.indexOf('\n', i2+1); //third line of text
+			if (i > 0)
+				value = Util.parsecsv(parsable.substring(i2+1, i));
+			i2 = parsable.indexOf('\n', i+1);
+			if (i2 > 0)
+				quantity = Util.parsecsv(parsable.substring(i+1, i2));
+				
+		}
+	}
 	/**
 	 * Solution for knapsack problem that restricts items to zero or one each.
 	 */
@@ -58,6 +92,7 @@ public class Knapsack {
 	
 	public void zero_one2() {
 		solution.clear();
+		timer.start();
 		int[][] A = new int[source.size()+1][(int) limit+1];
 		//if the limit is zero, cannot add any items.
 		for(int i = 0; i < source.size()+1; i++) A[i][0] = 0;
@@ -94,14 +129,16 @@ public class Knapsack {
 			}
 		}
 		//System.out.println(Util.matrix_toString(A));
+		timer.stop();
 	}
 	
 	public void reset() {
 		source.clear();
 		solution.clear();
 		limit = 0;
+		timer.reset();
 	}
-	public void manual_load(int limit, int[] weight, int[] value, int[] quantity) {
+	public void manual_load(int limit, Integer[] weight, Integer[] value, Integer[] quantity) {
 		reset();
 		this.limit = limit;
 		for (int i = 0; i < weight.length; i++) {

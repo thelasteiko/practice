@@ -26,6 +26,7 @@ public abstract class AbstractGridPane extends GridPane {
 	 */
 	public AbstractGridPane(AbstractStackTab parent) {
 		this.parent = parent;
+		build();
 	}
 	/**
 	 * Builds the panel.
