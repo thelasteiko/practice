@@ -29,9 +29,20 @@ public class Util {
 	
 	private Util() {}
 
-	public static <T extends Number> T max (T a, T b) {
-		if (a.doubleValue() >= b.doubleValue()) return a;
-		else return b;
+	public static <T extends Number> T max (T... a) {
+		T max = a[0];
+		for (int i = 1; i < a.length; i++) {
+			if (a[i].doubleValue() > max.doubleValue()) max = a[i];
+		}
+		return max;
+	}
+	
+	public static <T extends Number> T min (T... a) {
+		T min = a[0];
+		for (int i = 1; i < a.length; i++) {
+			if (a[i].doubleValue() < min.doubleValue()) min = a[i];
+		}
+		return min;
 	}
 	
 	public static String matrix_toString(int[][] matrix) {
@@ -97,5 +108,18 @@ public class Util {
 			data[i] = Integer.parseInt(parsed_data[i]);
 		}
 		return data;
+	}
+	
+	public static String intlist_toString(Integer[] list) {
+		StringBuilder sb = new StringBuilder();
+		sb.append('{');
+		if (list.length > 0)
+			sb.append(list[0]);
+		for (int i = 1; i < list.length; i++) {
+			sb.append(',');
+			sb.append(list[i]);
+		}
+		sb.append('}');
+		return sb.toString();
 	}
 }

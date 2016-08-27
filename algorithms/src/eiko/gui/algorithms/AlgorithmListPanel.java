@@ -1,5 +1,6 @@
 package eiko.gui.algorithms;
 
+import eiko.testable.JobSelection;
 import eiko.testable.Knapsack;
 import eiko.testable.MergeSort;
 import eiko.testable.QuickSort;
@@ -15,9 +16,10 @@ public class AlgorithmListPanel extends AbstractListPanel {
 
 	@Override
 	public void buildList() {
-		addAll("Knapsack", "Quicksort", "Mergesort");//,
+		addAll("Knapsack", "Quicksort", "Mergesort",
+				"Job Selection");//,
 //				"Martian Coin Changing", "Robot Coin Collection",
-//				"Dijsktra's","Job Selection");
+//				"Dijsktra's",);
 	}
 
 	@Override
@@ -35,6 +37,9 @@ public class AlgorithmListPanel extends AbstractListPanel {
 				break;
 			case "Mergesort":
 				parent.push(new AlgorithmTestPanel(parent, new MergeSort()));
+				break;
+			case "Job Selection":
+				parent.push(new AlgorithmTestPanel(parent, new JobSelection()));
 				break;
 			}
 		});
