@@ -13,7 +13,7 @@ public class MCCTest implements CallbackInterface {
 	
 	public MCCTest() {
 		MartianCoinChanging mc = new MartianCoinChanging();
-		String test_data = "9\n1,3,5,8,10,12";
+		String test_data = "11\n1,3,5,8,10,12";
 		mc.setCallback(this);
 		mc.setData(test_data);
 		Thread thread = new Thread(mc);

@@ -2,6 +2,7 @@ package eiko.gui.algorithms;
 
 import eiko.testable.JobSelection;
 import eiko.testable.Knapsack;
+import eiko.testable.MartianCoinChanging;
 import eiko.testable.MergeSort;
 import eiko.testable.QuickSort;
 import javafx.scene.control.Button;
@@ -17,8 +18,8 @@ public class AlgorithmListPanel extends AbstractListPanel {
 	@Override
 	public void buildList() {
 		addAll("Knapsack", "Quicksort", "Mergesort",
-				"Job Selection");//,
-//				"Martian Coin Changing", "Robot Coin Collection",
+				"Job Selection", "Martian Coin Changing");
+//				, "Robot Coin Collection",
 //				"Dijsktra's",);
 	}
 
@@ -40,6 +41,9 @@ public class AlgorithmListPanel extends AbstractListPanel {
 				break;
 			case "Job Selection":
 				parent.push(new AlgorithmTestPanel(parent, new JobSelection()));
+				break;
+			case "Martian Coin Changing":
+				parent.push(new AlgorithmTestPanel(parent, new MartianCoinChanging()));
 				break;
 			}
 		});

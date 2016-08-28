@@ -12,7 +12,7 @@ public class MartianCoinChanging extends AbstractRunnableTest {
 	
 	private Integer[] data;
 	private int value;
-	//private Integer[] results;
+	private Integer[] results;
 	private int result;
 	
 	public MartianCoinChanging() {
@@ -25,7 +25,7 @@ public class MartianCoinChanging extends AbstractRunnableTest {
 		timer.start();
 		mcc();
 		timer.stop();
-		cb.test_end(data.length, timer, String.valueOf(result));
+		cb.test_end(data.length, timer, Util.intlist_toString(results), String.valueOf(result));
 				//Util.intlist_toString(results));
 	}
 
@@ -44,11 +44,11 @@ public class MartianCoinChanging extends AbstractRunnableTest {
 	}
 	
 	private void mcc() {
-//		results = new Integer[value+1];
-//		for (int i = 0; i <= value; i++) {
-//			results[i] = mcc(data, i);
-//		}
-		result = mcc(data, value);
+		results = new Integer[value+1];
+		for (int i = 0; i <= value; i++) {
+			results[i] = mcc(data, i);
+		}
+		result = results[value];
 	}
 	
 	private int mcc(Integer c[], int v) {
