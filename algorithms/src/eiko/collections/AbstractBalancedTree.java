@@ -14,14 +14,21 @@ public abstract class AbstractBalancedTree<K extends Comparable<? super K>, V> i
 	protected Node root;
 	protected int size;
 	
+	/**
+	 * Rotates a node left so that the right child
+	 * becomes the parent.
+	 * @param n is the node to rotate.
+	 */
 	protected void rotateLeft(Node n) {
-		//a->b->c
-		//1. b.left = a
-		//2. a.parent = b
+		if (n == null) return;
 		Node temp = n.right;
 		if (n.parent != null) {
 			temp.parent = n.parent;
 			n.parent.right = temp;
+		}
+		if (temp.left != null) {
+			n.left = temp.left;
+			n.left.parent = n;
 		}
 		temp.left = n;
 		n.parent = temp;
@@ -30,12 +37,21 @@ public abstract class AbstractBalancedTree<K extends Comparable<? super K>, V> i
 			root = temp;
 		} 
 	}
-	
+	/**
+	 * Rotates a node right so that the left child
+	 * becomes the parent.
+	 * @param n is the node to rotate.
+	 */
 	protected void rotateRight(Node n) {
+		if (n == null) return;
 		Node temp = n.left;
 		if (n.parent != null) {
 			temp.parent = n.parent;
 			n.parent.left = temp;
+		}
+		if (temp.right != null) {
+			n.right = temp.right;
+			n.right.parent = n;
 		}
 		temp.right = n;
 		n.parent = temp;
@@ -44,13 +60,31 @@ public abstract class AbstractBalancedTree<K extends Comparable<? super K>, V> i
 			root = temp;
 		}
 	}
-	
+	/**
+	 * Rotates a node left then right.
+	 *    c         b
+	 *   /         / \
+	 *  n    -->  n   c
+	 *   \
+	 *    b
+	 * @param n is the node to rotate.
+	 */
 	protected void rotateLeftRight(Node n) {
-		
+		rotateLeft(n);
+		if (n.parent != null) rotateRight(n.parent.parent);
 	}
-	
+	/**
+	 * Rotates a node right then left.
+	 *  c           b
+	 *   \         / \
+	 *    n  -->  c   n
+	 *   /
+	 *  b
+	 * @param n is the node to rotate.
+	 */
 	protected void rotateRightLeft(Node n) {
-		
+		rotateRight(n);
+		if (n.parent != null) rotateLeft(n.parent.parent);
 	}
 	//TODO move the height to AVL when it's made
 	protected int heightUp(Node n) {
@@ -71,7 +105,7 @@ public abstract class AbstractBalancedTree<K extends Comparable<? super K>, V> i
 	
 	protected Node getNode(K key) {
 		Node temp = root;
-		while(temp != null || !temp.key.equals(key)) {
+		while(temp != null && !temp.key.equals(key)) {
 			if (temp.key.compareTo(key) > 0)
 				temp = temp.right;
 			else if (temp.key.compareTo(key) < 0)
