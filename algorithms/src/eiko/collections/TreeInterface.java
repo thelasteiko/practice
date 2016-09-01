@@ -11,7 +11,7 @@ public interface TreeInterface<K extends Comparable<? super K>, V> {
 	public String in_order();
 	public String pre_order();
 	public String post_order();
-	public void add();
+	public void add(K key, V value);
 	public V get(K key);
 	public V remove(K key);
 	public void addAll(V[] list);

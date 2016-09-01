@@ -17,6 +17,11 @@ public abstract class AbstractBalancedTree<K extends Comparable<? super K>, V> i
 	/**
 	 * Rotates a node left so that the right child
 	 * becomes the parent.
+	 * n
+	 *  \
+	 *   b   -->  b
+	 *    \      / \
+	 *     c    n   c
 	 * @param n is the node to rotate.
 	 */
 	protected void rotateLeft(Node n) {
@@ -40,6 +45,11 @@ public abstract class AbstractBalancedTree<K extends Comparable<? super K>, V> i
 	/**
 	 * Rotates a node right so that the left child
 	 * becomes the parent.
+	 *     n
+	 *    /
+	 *   b   -->  b
+	 *  /        / \
+	 * c        c   n
 	 * @param n is the node to rotate.
 	 */
 	protected void rotateRight(Node n) {

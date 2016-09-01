@@ -9,7 +9,7 @@ import java.util.Arrays;
  */
 public class EikoArray<E extends Comparable<? super E>> {
 	
-	public static final int START_SIZE = 10;
+	public static final int START_SIZE = 3;
 	
 	private E[] elements;
 	private int size;
@@ -80,7 +80,11 @@ public class EikoArray<E extends Comparable<? super E>> {
 			elements = Arrays.copyOf(elements, n+START_SIZE);
 		}
 	}
-	
+	/**
+	 * Small utility function that fills in an empty space when
+	 * an element is removed.
+	 * @param i is the index to fill.
+	 */
 	private void fill(int i) {
 		elements[i] = elements[size-1];
 		size--;
