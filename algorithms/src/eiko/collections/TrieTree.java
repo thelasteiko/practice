@@ -20,7 +20,10 @@ public class TrieTree {
 		root = new Node(null);
 		size = 0;
 	}
-	
+	/**
+	 * Adds a new word to the tree.
+	 * @param word is the word to add.
+	 */
 	public void add(String word) {
 		char[] a = word.trim().toCharArray();
 		Node temp = root;
@@ -36,7 +39,11 @@ public class TrieTree {
 		if (count >= a.length) return;
 		size++;
 	}
-	
+	/**
+	 * Determines if the prefix is in the tree.
+	 * @param prefix is the series of letters to look for.
+	 * @return true if the prefix can be found, false otherwise.
+	 */
 	public boolean contains(String prefix) {
 		Node n = getNode(prefix);
 		if (n == null) return false;
@@ -50,6 +57,13 @@ public class TrieTree {
 		Node n = getNode(prefix);
 		return get(n);
 	}
+	/**
+	 * Gets the best match for the prefix. The best match
+	 * is a word, starting with the prefix, that has been added
+	 * to the tree the most amount of times.
+	 * @param prefix is the series of letters to look for.
+	 * @return the highest frequency word that starts with the prefix.
+	 */
 	public String bestMatch(String prefix) {
 		//I want to return the string representing the max
 		//frequency
@@ -61,6 +75,33 @@ public class TrieTree {
 			sb.append(temp.c);
 		}
 		return sb.toString();
+	}
+	/**
+	 * Adds the given list of strings to the tree.
+	 * @param list is a list of strings to add.
+	 */
+	public void addAll(String[] list) {
+		for(String s: list) add(s);
+	}
+	/**
+	 * The number of words added.
+	 * @return the number of words added.
+	 */
+	public int size() {
+		return size;
+	}
+	/**
+	 * Removes all words.
+	 */
+	public void clear() {
+		root = new Node(null);
+	}
+	/**
+	 * Determines if no words have been added.
+	 * @return true if the tree is empty, false otherwise.
+	 */
+	public boolean isEmpty() {
+		return root.isEmpty();
 	}
 	/**
 	 * Supposed to get the node at the end of the prefix.
@@ -86,13 +127,13 @@ public class TrieTree {
 		return temp;
 	}
 	/**
-	 * Returns a list of all words in the tree.
+	 * Returns a list of all distinct words in the tree.
 	 * @return a list of all words in the tree.
 	 */
 	private ArrayList<String> get(Node n) {
-		ArrayList<String> words = new ArrayList<String>(size);
+		ArrayList<String> words = new ArrayList<String>();
 		if(n.isEmpty()) return words;
-		ArrayList<CharacterArray> temp = new ArrayList<CharacterArray>(size);
+		ArrayList<CharacterArray> temp = new ArrayList<CharacterArray>();
 		for (Node c: n.next) {
 			if (c != null) {
 				get(c, 0, temp);
@@ -121,35 +162,6 @@ public class TrieTree {
 			}
 		}
 		return t;
-	}
-	
-	//I know how many words branch off because of the frequency
-	
-	public Object remove(Comparable key) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-	public void addAll(String[] list) {
-		for(String s: list) add(s);
-	}
-
-	
-	public int size() {
-		return size;
-	}
-
-	
-	public void clear() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 	
 	private int getIndex(char c) {

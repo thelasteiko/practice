@@ -96,22 +96,6 @@ public abstract class AbstractBalancedTree<K extends Comparable<? super K>, V> i
 		rotateRight(n);
 		if (n.parent != null) rotateLeft(n.parent.parent);
 	}
-	//TODO move the height to AVL when it's made
-	protected int heightUp(Node n) {
-		int h = 0;
-		Node temp = n;
-		while (temp != root) {
-			temp = temp.parent;
-			h++;
-		}
-		return h;
-	}
-	
-	protected int heightDown(Node n) {
-		if (n == null) return 0;
-		if (n.right == null && n.left == null) return 1;
-		return 1 + Util.max(heightDown(n.right), heightDown(n.left));
-	}
 	
 	protected Node getNode(K key) {
 		Node temp = root;
@@ -120,6 +104,59 @@ public abstract class AbstractBalancedTree<K extends Comparable<? super K>, V> i
 				temp = temp.right;
 			else if (temp.key.compareTo(key) < 0)
 				temp = temp.left;
+		}
+		return temp;
+	}
+	
+	protected void removeNode(Node n) {
+		if (n.leaf()) {
+			if (n.parent.right.equals(n))
+				n.parent.right = null;
+			if (n.parent.left.equals(n))
+				n.parent.left = null;
+			return;
+		}
+		if (n.right == null && n.left != null) {
+			Node temp = n.left;
+			temp.parent = n.parent;
+			if (n.parent.left.equals(n))
+				n.parent.left = temp;
+			else if (n.parent.right.equals(n))
+				n.parent.right = temp;
+		}
+	}
+	
+	protected Node successor(Node n) {
+		Node m = findMin(n.right);
+		if (m == null) m = findMax(n.left);
+		return m;
+	}
+	
+	protected Node findMin(Node n) {
+		if (n == null) return n;
+		Node temp = n;
+		while (!temp.leaf()) {
+			temp = temp.left;
+		}
+		return temp;
+	}
+	
+	protected Node findMax(Node n) {
+		if (n == null) return n;
+		Node temp = n;
+		while (!temp.leaf()) {
+			temp = temp.right;
+		}
+		return temp;
+	}
+	
+	protected Node getParentNode(Node temp, K key) {
+		if (temp.key.compareTo(key) > 0) {
+			if(temp.right == null) return temp;
+			else return getParentNode(temp.right, key);
+		} else if (temp.key.compareTo(key) < 0) {
+			if (temp.left == null) return temp;
+			else return getParentNode(temp.left, key);
 		}
 		return temp;
 	}
@@ -141,6 +178,13 @@ public abstract class AbstractBalancedTree<K extends Comparable<? super K>, V> i
 			this.parent = parent;
 			this.key = key;
 			this.value = value;
+		}
+		
+		public boolean leaf() {
+			return (left == null && right == null);
+		}
+		public boolean root() {
+			return parent == null;
 		}
 	}
 }
