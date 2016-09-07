@@ -41,7 +41,7 @@ public class AVLTree extends AbstractBalancedTree<Integer, String> {
 	
 	private void balance(Node temp) {
 		//check balance between two branches
-		//if they are out of balance, rotate the greater
+		//if they are out of balance, rotate
 		int r = heightDown(temp.right);
 		int l = heightDown(temp.left);
 		if (Math.abs(r-l) >= BALANCE_FACTOR) {
@@ -69,20 +69,32 @@ public class AVLTree extends AbstractBalancedTree<Integer, String> {
 	public String remove(Integer key) {
 		Node temp = getNode(key);
 		if (temp != null) {
-			
+			Node p = temp.parent;
+			removeNode(temp);
+			size--;
+			if (p != null) balance(p);
 		}
+		return temp.value;
 	}
 
 	@Override
 	public void addAll(String[] list) {
-		// TODO Auto-generated method stub
-		
+		//go for adding per recursion
+		addAllhelper(list, 0, list.length-1);
 	}
-
-	@Override
-	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+	/**
+	 * Adds items from a list by splitting in in halves each time.
+	 * This hopefully prevents the tree from having to rotate a lot.
+	 * @param list is the list.
+	 * @param s is the starting index.
+	 * @param e is the ending index.
+	 */
+	private void addAllhelper(String[] list, int s, int e) {
+		if (s > e) return;
+		int m = (s+e) / 2;
+		add(m, list[m]);
+		addAllhelper(list, s, m-1);
+		addAllhelper(list, m+1, e);
 	}
 
 	@Override

@@ -1,22 +1,16 @@
 package eiko.collections;
 
-import java.util.Arrays;
-
 /**
  * It's an array; not guaranteed to keep ordering of elements.
  * @author Melinda Robertson
  * @version 20160818
  */
-public class EikoArray<E extends Comparable<? super E>> {
-	
-	public static final int START_SIZE = 3;
-	
-	private E[] elements;
-	private int size;
+public class EikoArray<E extends Comparable<? super E>> extends
+	AbstractArray<E>{
 	
 	@SuppressWarnings("unchecked")
 	public EikoArray() {
-		elements = (E[]) new Object[START_SIZE];
+		elements = (E[]) new Comparable[START_SIZE];
 		size = 0;
 	}
 	
@@ -75,11 +69,6 @@ public class EikoArray<E extends Comparable<? super E>> {
 		return elements[index];
 	}
 	
-	private void check_size(int n) {
-		if (n < elements.length) {
-			elements = Arrays.copyOf(elements, n+START_SIZE);
-		}
-	}
 	/**
 	 * Small utility function that fills in an empty space when
 	 * an element is removed.

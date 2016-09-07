@@ -47,6 +47,21 @@ public class EikoList<T extends Comparable<T>> {
 		if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
 		return getNodeAt(index).value;
 	}
+	public T get(T value) {
+		Node temp = head;
+		while (temp != null && !temp.value.equals(value)) {
+			temp = temp.next;
+		}
+		return temp.value;
+	}
+	public void insertSorted(T value) {
+		Node temp = head;
+		while (temp != null && temp.value.compareTo(value) < 0) {
+			temp = temp.next;
+		}
+		if (temp == null) add(value);
+		else insertBefore(value, temp);
+	}
 	
 	private Node getNodeAt(int index) {
 		Node temp = head;
@@ -56,6 +71,15 @@ public class EikoList<T extends Comparable<T>> {
 			i++;
 		}
 		return temp;
+	}
+	
+	private Node getNode(T value) {
+		Node temp = head;
+		while (temp != null) {
+			if (temp.value.equals(value)) return temp;
+			temp = temp.next;
+		}
+		return null;
 	}
 	
 	private void insertBefore(T value, Node b) {
