@@ -134,18 +134,6 @@ public class CharacterGraph {
 		return sb.toString();
 	}
 	
-	public String astar(char from, char to) {
-		//closed list
-		ArrayList<Node> closed = new ArrayList<Node>(size);
-		//open list
-		
-		//scores for each
-		for (int i = 0; i < size; i++) {
-			nodes[i].distance = i;
-		}
-		
-	}
-	
 	public boolean isEmpty() {
 		return size == 0;
 	}

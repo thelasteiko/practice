@@ -8,7 +8,7 @@ import eiko.error.HashKeyException;
  * @author Melinda Robertson
  * @version 20160819
  */
-public class EikoHashTable<K extends Comparable<K>,V> {
+public class EikoHashTable<K,V> {
 	
 	public static final float LOAD_FACTOR = 0.5f;
 	public static final float LOW_LOAD_FACTOR = 0.1f;
@@ -19,7 +19,7 @@ public class EikoHashTable<K extends Comparable<K>,V> {
 	private int size;
 	
 	public EikoHashTable() {
-		table = new Node[INITIAL_CAPACITY];
+		table = (Node[]) new Object[INITIAL_CAPACITY];
 		M = INITIAL_CAPACITY;
 	}
 	/**
@@ -31,6 +31,7 @@ public class EikoHashTable<K extends Comparable<K>,V> {
 	 * 							or that key already exists.
 	 */
 	public void put(K key, V value) throws HashException {
+		if (contains(key)) return;
 		check_size(size+1);
 		int h = hash(key);
 		int j = 0;
@@ -41,7 +42,7 @@ public class EikoHashTable<K extends Comparable<K>,V> {
 			h = (h+j*j) % (M-1);
 		}
 		if (table[h] != null) throw new HashKeyException(h, key.toString());
-		table[h] = new Node<K, V>(key, value);
+		table[h] = new Node(key, value);
 		size++;
 	}
 	/**
@@ -52,7 +53,7 @@ public class EikoHashTable<K extends Comparable<K>,V> {
 	public V get(K key) {
 		Node n = getNode(key);
 		if (n != null) return (V) n.value;
-		else return null;
+		return null;
 	}
 	/**
 	 * Removes a key,value pair from the hash table.
@@ -69,12 +70,16 @@ public class EikoHashTable<K extends Comparable<K>,V> {
 		return (V) temp;
 	}
 	
+	public boolean contains(K key) {
+		return (getIndex(key) >= 0);
+	}
+	
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("{");
 		//find the first node that isn't null and start there
 		int j = 0;
-		Node<K, V> temp = table[j++];
+		Node temp = table[j++];
 		while (temp == null) temp = table[j++];
 		sb.append(j-1);
 		sb.append(table[j-1].toString());
@@ -144,7 +149,7 @@ public class EikoHashTable<K extends Comparable<K>,V> {
 	 */
 	@SuppressWarnings("unchecked")
 	private Node[] rehash() throws HashFullException {
-		Node[] t = new Node[M];
+		Node[] t = (Node[]) new Object[M];
 		for(int i = 0, j = 0; i < table.length; i++, j = 0) {
 			if (table[i] == null) continue;
 			int h = hash(table[i].key);
@@ -171,10 +176,10 @@ public class EikoHashTable<K extends Comparable<K>,V> {
 		return ((3*h) >>> (16)) % (M-1);
 	}
 	
-	private class Node<T extends K,T2 extends V> {
-		T key;
-		T2 value;
-		public Node(T key, T2 value) {
+	protected class Node {
+		K key;
+		V value;
+		public Node(K key, V value) {
 			super();
 			this.key = key;
 			this.value = value;
